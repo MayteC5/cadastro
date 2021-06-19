@@ -1,0 +1,64 @@
+
+
+
+@exercicio
+
+
+entity Cliente {
+ nome String required
+ id Integer required
+ telefone Long
+}
+
+entity Pessoafisica {
+ idcliente Integer required
+ cpf Long required
+}
+
+entity Pessoajuridica {
+ idcliente Integer required
+ cnpj Long required
+}
+
+entity Endereco {
+ idcliente Integer required
+ cidade String 
+ bairro String
+ rua String
+}
+
+entity Produtocomprado {
+ codigo Integer required
+ idcliente Integer required
+ cnpjtransportadora Integer required
+ produto String
+ valor Double
+}
+
+entity Transportadora {
+ cnpj Integer
+ nome String
+}
+
+relationship OneToOne {
+ Cliente{Pessoafisica(idcliente)} to Pessoafisica{Cliente(id)}
+ Clente{Pessoajuridica(idcliente)} to Pessoajuridica{Cliente(id)}
+}
+
+relationship OneToMany {
+ Cliente{Produtocomprado(codigo)} to Produtocomprado{Cliente(id)}
+}
+
+relationship OneToMany {
+ Cliente to Endereco
+}
+
+relationship ManyToOne {
+ Produtocomprado{Transportadora(cnpj)} to Transportadora
+}
+
+
+
+
+
+
